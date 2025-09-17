@@ -6,7 +6,7 @@ const MOCK_STAFF_LIST: Staff[] = [
     name: 'Dr K. Nirmala',
     email: 'nirmala@mits.ac.in',
     phone: '+91 1234567890',
-    avatarUrl: 'https://i.imgur.com/Q2YR2nQ.jpeg',
+    avatarUrl: 'https://picsum.photos/seed/Nirmala/100/100',
     password: 'password123',
     classes: ['CSE-A', 'CSE-B', 'CSE-C'],
   },
