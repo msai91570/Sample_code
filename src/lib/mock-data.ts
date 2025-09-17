@@ -13,7 +13,7 @@ export const MOCK_STAFF: Staff = {
 const CSE_C_STUDENTS: Student[] = [
   { id: '23691A05G6', rollNo: '23691A05G6', name: 'Mani Bhushan', email: 'mani.b@mits.ac.in', password: 'password123' },
   { id: '23691A05G3', rollNo: '23691A05G3', name: 'Razak', email: 'razak@mits.ac.in', password: 'password123' },
-  { id: '23691A05J', rollNo: '23691A05J', name: 'Sandra', email: 'sandra@mits.ac.in', password: 'password123' },
+  { id: '23691A05J1', rollNo: '23691A05J1', name: 'Sandra', email: 'sandra@mits.ac.in', password: 'password123' },
   { id: '23691A05J5', rollNo: '23691A05J5', name: 'Santosh Kumar', email: 'santosh.k@mits.ac.in', password: 'password123' },
   { id: '23691A3262', rollNo: '23691A3262', name: 'Koushik', email: 'koushik@mits.ac.in', password: 'password123' },
   { id: '23691A0594', rollNo: '23691A0594', name: 'Nawiin', email: 'nawiin@mits.ac.in', password: 'password123' },
