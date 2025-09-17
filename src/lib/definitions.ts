@@ -14,6 +14,8 @@ export type Student = {
   email: string;
   rollNo: string;
   password?: string;
+  phone?: string;
+  avatarUrl?: string;
 };
 
 export type ClassRoster = {

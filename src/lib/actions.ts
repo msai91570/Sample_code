@@ -56,9 +56,8 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
      redirect('/staff/dashboard');
   }
 
-  // For now, we only have the staff dashboard. Student login will show an alert.
   if (role === 'student') {
-    return { message: "Student portal is not yet available." }
+    redirect('/student/dashboard');
   }
 
   // This should not be reached
@@ -129,6 +128,8 @@ export async function addUser(prevState: AddUserState, formData: FormData): Prom
       email,
       password,
       rollNo: `TEMP-${Date.now()}`, // Temporary roll number
+      phone: 'N/A',
+      avatarUrl: `https://picsum.photos/seed/${name.split(' ')[0]}/100/100`,
     };
     USERS_DB.students.push(newStudent);
     console.log('Added new student:', newStudent);
@@ -139,7 +140,7 @@ export async function addUser(prevState: AddUserState, formData: FormData): Prom
       email,
       password,
       phone: 'N/A',
-      avatarUrl: 'https://picsum.photos/seed/new-staff/100/100',
+      avatarUrl: `https://picsum.photos/seed/${name.split(' ')[0]}/100/100`,
       classes: [],
     };
     USERS_DB.staff.push(newStaff);
