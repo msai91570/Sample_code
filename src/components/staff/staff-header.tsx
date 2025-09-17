@@ -10,7 +10,7 @@ export function StaffHeader() {
   const staff: Staff = MOCK_STAFF;
 
   return (
-    <header className="bg-muted/30 border-b p-6">
+    <header className="bg-muted border-b p-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold font-headline text-foreground">{staff.name}</h1>
