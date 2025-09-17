@@ -67,6 +67,7 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead>Student Name</TableHead>
+              <TableHead>Roll No.</TableHead>
               <TableHead className="text-center w-[300px]">Attendance</TableHead>
             </TableRow>
           </TableHeader>
@@ -76,6 +77,7 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
               return (
                 <TableRow key={student.id}>
                   <TableCell className="font-medium">{student.name}</TableCell>
+                  <TableCell>{student.rollNo}</TableCell>
                   <TableCell>
                     <RadioGroup
                       className="flex justify-center space-x-4"

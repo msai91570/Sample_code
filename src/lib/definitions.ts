@@ -12,6 +12,7 @@ export type Student = {
   id: string;
   name: string;
   email: string;
+  rollNo: string;
   password?: string;
 };
 
