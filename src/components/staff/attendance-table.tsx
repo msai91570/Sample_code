@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useMemo, useTransition, useEffect } from 'react';
-import { useFormState } from 'react-dom';
+import { useState, useMemo, useTransition, useEffect, useActionState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -29,7 +28,7 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
   const [selectAllStatus, setSelectAllStatus] = useState<AttendanceStatus | null>(null);
 
   const initialState: AttendanceState = { message: null };
-  const [state, dispatch] = useFormState(submitAttendance, initialState);
+  const [state, dispatch] = useActionState(submitAttendance, initialState);
 
   useEffect(() => {
     onAttendanceChange(attendance);

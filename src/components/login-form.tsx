@@ -1,7 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { useEffect } from 'react';
+import { useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -37,7 +37,7 @@ function SubmitButton() {
 export function LoginForm({ role }: LoginFormProps) {
   const initialState: LoginState = { message: null, errors: {} };
   const loginWithRole = login.bind(null);
-  const [state, dispatch] = useFormState(loginWithRole, initialState);
+  const [state, dispatch] = useActionState(loginWithRole, initialState);
   const { toast } = useToast();
 
   const {
