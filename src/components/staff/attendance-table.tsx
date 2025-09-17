@@ -33,7 +33,7 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
 
   useEffect(() => {
     onAttendanceChange(attendance);
-  }, [attendance]);
+  });
 
   useEffect(() => {
     if (state.message) {
@@ -143,7 +143,7 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
         </Table>
       </div>
       <div className="flex justify-end mt-6">
-        <Button type="submit" disabled={isPending} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+        <Button variant="destructive" type="submit" disabled={isPending}>
           {isPending ? 'Submitting...' : 'Submit Attendance'}
         </Button>
       </div>
