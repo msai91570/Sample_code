@@ -23,7 +23,7 @@ export function AttendanceManager() {
 
     return (
         <Tabs defaultValue={classes[0]}>
-            <TabsList className="grid w-full grid-cols-2 md:w-auto md:grid-flow-col">
+            <TabsList className="grid w-full grid-cols-3 md:w-[400px]">
                 {classes.map(className => (
                      <TabsTrigger key={className} value={className}>{className}</TabsTrigger>
                 ))}
