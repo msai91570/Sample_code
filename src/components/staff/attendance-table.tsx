@@ -32,10 +32,6 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
   const [state, dispatch] = useActionState(submitAttendance, initialState);
 
   useEffect(() => {
-    onAttendanceChange(attendance);
-  });
-
-  useEffect(() => {
     if (state.message) {
       toast({
         title: "Attendance Update",
@@ -46,17 +42,19 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
   }, [state, toast]);
 
   const handleStatusChange = (studentId: string, status: AttendanceStatus) => {
-    setAttendance(prev =>
-      prev.map(record =>
+    const newAttendance = attendance.map(record =>
         record.studentId === studentId ? { ...record, status } : record
-      )
-    );
+      );
+    setAttendance(newAttendance);
+    onAttendanceChange(newAttendance);
     setSelectAllStatus(null);
   };
 
   const handleSelectAll = (status: AttendanceStatus) => {
     setSelectAllStatus(status);
-    setAttendance(students.map(student => ({ studentId: student.id, status })));
+    const newAttendance = students.map(student => ({ studentId: student.id, status }));
+    setAttendance(newAttendance);
+    onAttendanceChange(newAttendance);
   };
   
   const formAction = (formData: FormData) => {
