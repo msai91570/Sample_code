@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { USERS_DB } from './mock-data';
+import type { Student, Staff } from './definitions';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
@@ -76,4 +77,74 @@ export async function submitAttendance(prevState: AttendanceState, formData: For
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return { message: `Attendance submitted successfully for class ${formData.get('className')}!` };
+}
+
+const AddUserSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required.' }),
+  email: z.string().email({ message: 'Please enter a valid email.' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+  role: z.enum(['staff', 'student']),
+});
+
+export type AddUserState = {
+  errors?: {
+    name?: string[];
+    email?: string[];
+    password?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+}
+
+export async function addUser(prevState: AddUserState, formData: FormData): Promise<AddUserState> {
+  const validatedFields = AddUserSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Invalid fields. Failed to add user.',
+      success: false,
+    };
+  }
+
+  const { name, email, password, role } = validatedFields.data;
+
+  // Check if user already exists
+  const existingUser = 
+    USERS_DB.staff.some(u => u.email === email) || 
+    USERS_DB.students.some(u => u.email === email) ||
+    USERS_DB.admin.some(u => u.email === email);
+
+  if (existingUser) {
+    return {
+      message: `User with email ${email} already exists.`,
+      success: false,
+    }
+  }
+
+  if (role === 'student') {
+    const newStudent: Student = {
+      id: `student-${Date.now()}`,
+      name,
+      email,
+      password,
+      rollNo: `TEMP-${Date.now()}`, // Temporary roll number
+    };
+    USERS_DB.students.push(newStudent);
+    console.log('Added new student:', newStudent);
+  } else if (role === 'staff') {
+    const newStaff: Staff = {
+      id: `staff-${Date.now()}`,
+      name,
+      email,
+      password,
+      phone: 'N/A',
+      avatarUrl: 'https://picsum.photos/seed/new-staff/100/100',
+      classes: [],
+    };
+    USERS_DB.staff.push(newStaff);
+    console.log('Added new staff:', newStaff);
+  }
+
+  return { message: `Successfully added ${role}: ${name}`, success: true };
 }

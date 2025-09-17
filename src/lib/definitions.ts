@@ -35,3 +35,7 @@ export type AttendanceRecord = {
   studentId: string;
   status: AttendanceStatus | null;
 };
+
+export type UserRole = 'student' | 'staff' | 'admin';
+
+export type User = Student | Staff;
