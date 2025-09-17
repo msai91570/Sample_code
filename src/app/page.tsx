@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-full flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-      <div className="w-full max-w-lg">
+      <div className="w-full max-w-xl">
         <AnimatePresence mode="wait">
           {!selectedRole ? (
             <motion.div
@@ -38,7 +38,7 @@ export default function Home() {
                     The unified portal for students and staff.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="flex flex-col space-y-4 p-8">
+                <CardContent className="flex flex-col space-y-4 p-8 py-12">
                   <Button
                     size="lg"
                     className="w-full"
