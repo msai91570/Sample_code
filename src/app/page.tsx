@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { LoginForm } from '@/components/login-form';
@@ -21,7 +20,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-full flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg">
         <AnimatePresence mode="wait">
           {!selectedRole ? (
             <motion.div
@@ -32,7 +31,7 @@ export default function Home() {
               exit="exit"
               transition={{ duration: 0.3 }}
             >
-              <Card className="w-full max-w-md shadow-2xl">
+              <Card className="w-full shadow-2xl">
                 <CardHeader className="text-center">
                   <CardTitle className="text-3xl font-headline mt-4">Attendance Monitor</CardTitle>
                   <CardDescription className="pt-2">
@@ -68,7 +67,7 @@ export default function Home() {
               exit="exit"
               transition={{ duration: 0.3 }}
             >
-              <Card className="w-full max-w-md shadow-2xl">
+              <Card className="w-full shadow-2xl">
                 <CardHeader>
                   <div className="relative">
                     <Button
