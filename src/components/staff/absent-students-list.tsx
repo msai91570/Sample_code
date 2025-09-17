@@ -2,9 +2,9 @@
 
 import type { AttendanceRecord, Student } from '@/lib/definitions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { ScrollArea } from '../ui/scroll-area';
 import { UserX } from 'lucide-react';
+import { Badge } from '../ui/badge';
 
 interface AbsentStudentsListProps {
     students: Student[];
@@ -29,24 +29,15 @@ export function AbsentStudentsList({ students, attendanceRecords }: AbsentStuden
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <ScrollArea className="h-48 rounded-md border">
+                <ScrollArea className="h-48 rounded-md border p-2">
                     {absentStudents.length > 0 ? (
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Name</TableHead>
-                                    <TableHead>Roll No.</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
+                        <div className="flex flex-wrap gap-2">
                             {absentStudents.map(student => (
-                                <TableRow key={student.id}>
-                                    <TableCell className="font-medium">{student.name}</TableCell>
-                                    <TableCell>{student.rollNo}</TableCell>
-                                </TableRow>
+                                <Badge key={student.id} variant="secondary" className="font-mono">
+                                    {student.rollNo}
+                                </Badge>
                             ))}
-                            </TableBody>
-                        </Table>
+                        </div>
                     ) : (
                         <div className="flex items-center justify-center h-full">
                             <p className="text-sm text-muted-foreground text-center p-4">

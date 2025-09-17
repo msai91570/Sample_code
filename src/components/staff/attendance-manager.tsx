@@ -13,8 +13,8 @@ export function AttendanceManager() {
     const rosters = MOCK_ROSTERS;
     const [attendanceRecords, setAttendanceRecords] = useState<{[className: string]: AttendanceRecord[]}>({});
 
-    const handleAttendanceChange = (className: string, records: AttendanceRecord[]) => {
-        setAttendanceRecords(prev => ({ ...prev, [className]: records }));
+    const handleAttendanceChange = (className: string, newRecords: AttendanceRecord[]) => {
+        setAttendanceRecords(prev => ({ ...prev, [className]: newRecords }));
     }
 
     return (

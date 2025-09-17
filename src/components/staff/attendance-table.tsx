@@ -18,21 +18,22 @@ interface AttendanceTableProps {
 
 export function AttendanceTable({ students, className, onAttendanceChange }: AttendanceTableProps) {
   const initialAttendance = useMemo(() => 
-    students.map(student => ({ studentId: student.id, status: null })),
+    students.map(student => ({ studentId: student.id, status: 'P' as AttendanceStatus })),
     [students]
   );
+  
   const [attendance, setAttendance] = useState<AttendanceRecord[]>(initialAttendance);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   
-  const [selectAllStatus, setSelectAllStatus] = useState<AttendanceStatus | null>(null);
+  const [selectAllStatus, setSelectAllStatus] = useState<AttendanceStatus | null>('P');
 
   const initialState: AttendanceState = { message: null };
   const [state, dispatch] = useActionState(submitAttendance, initialState);
 
   useEffect(() => {
     onAttendanceChange(attendance);
-  }, [attendance]);
+  }, [attendance, onAttendanceChange]);
 
   useEffect(() => {
     if (state.message) {
