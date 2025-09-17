@@ -2,7 +2,7 @@ import type { Staff, Student, ClassRoster, TimetableEntry } from './definitions'
 
 export const MOCK_STAFF: Staff = {
   id: 'staff-01',
-  name: 'Nirmala Devi',
+  name: 'Kuraku Nirmala',
   email: 'nirmala@mits.ac.in',
   phone: '+1 (555) 123-4567',
   avatarUrl: 'https://picsum.photos/seed/1/100/100',
