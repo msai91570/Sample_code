@@ -6,7 +6,7 @@ import { USERS_DB } from './mock-data';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+  password: z.string().min(1, { message: 'Password is required.' }), // Allow any non-empty password for simplicity
   role: z.enum(['staff', 'student']),
 });
 
@@ -33,6 +33,12 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
 
   // Simulate database lookup
   await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // Check for admin user first
+  const adminUser = USERS_DB.admin.find((u) => u.email === email);
+  if (adminUser && adminUser.password === password) {
+    redirect('/admin/dashboard');
+  }
 
   let user = null;
   if (role === 'staff') {

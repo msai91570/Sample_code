@@ -5,10 +5,20 @@ export const MOCK_STAFF: Staff = {
   name: 'Dr K. Nirmala',
   email: 'nirmala@mits.ac.in',
   phone: '+91 1234567890',
-  avatarUrl: 'https://picsum.photos/seed/staff-avatar/100/100',
+  avatarUrl: 'https://picsum.photos/seed/1/100/100',
   password: 'password123',
   classes: ['CSE-A', 'CSE-B', 'CSE-C'],
 };
+
+const MOCK_ADMIN: Staff = {
+  id: 'admin-01',
+  name: 'Admin User',
+  email: 'admin@mits.ac.in',
+  phone: '+91 9876543210',
+  avatarUrl: 'https://picsum.photos/seed/admin-avatar/100/100',
+  password: 'admin123',
+  classes: [],
+}
 
 const CSE_A_STUDENTS: Student[] = [
     { id: '24691A05A1', rollNo: '24691A05A1', name: 'Aarav Sharma', email: 'aarav.s@mits.ac.in', password: 'password123' },
@@ -81,4 +91,5 @@ export const MOCK_TIMETABLE: TimetableEntry[] = [
 export const USERS_DB = {
   staff: [MOCK_STAFF],
   students: MOCK_STUDENTS,
+  admin: [MOCK_ADMIN],
 };
