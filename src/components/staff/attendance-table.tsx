@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useTransition } from 'react';
+import { useState, useMemo, useTransition, useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -9,15 +9,15 @@ import { Button } from '@/components/ui/button';
 import type { AttendanceRecord, AttendanceStatus, Student } from '@/lib/definitions';
 import { submitAttendance, type AttendanceState } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
-import { useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 
 interface AttendanceTableProps {
   students: Student[];
   className: string;
+  onAttendanceChange: (records: AttendanceRecord[]) => void;
 }
 
-export function AttendanceTable({ students, className }: AttendanceTableProps) {
+export function AttendanceTable({ students, className, onAttendanceChange }: AttendanceTableProps) {
   const initialAttendance = useMemo(() => 
     students.map(student => ({ studentId: student.id, status: null })),
     [students]
@@ -25,9 +25,15 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
   const [attendance, setAttendance] = useState<AttendanceRecord[]>(initialAttendance);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  
+  const [selectAllStatus, setSelectAllStatus] = useState<AttendanceStatus | null>(null);
 
   const initialState: AttendanceState = { message: null };
   const [state, dispatch] = useFormState(submitAttendance, initialState);
+
+  useEffect(() => {
+    onAttendanceChange(attendance);
+  }, [attendance, onAttendanceChange]);
 
   useEffect(() => {
     if (state.message) {
@@ -45,6 +51,12 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
         record.studentId === studentId ? { ...record, status } : record
       )
     );
+    setSelectAllStatus(null);
+  };
+
+  const handleSelectAll = (status: AttendanceStatus) => {
+    setSelectAllStatus(status);
+    setAttendance(students.map(student => ({ studentId: student.id, status })));
   };
   
   const formAction = (formData: FormData) => {
@@ -59,12 +71,37 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
     });
   }
 
-
   return (
     <form action={formAction}>
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <Table>
           <TableHeader>
+             <TableRow>
+              <TableHead colSpan={2}>Student</TableHead>
+              <TableHead className="text-center w-[300px]">
+                <div className="flex items-center justify-center space-x-2">
+                    <span>Select All:</span>
+                     <RadioGroup
+                      className="flex justify-center space-x-4"
+                      value={selectAllStatus || ''}
+                      onValueChange={(value) => handleSelectAll(value as AttendanceStatus)}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="P" id={`select-all-p`} />
+                        <Label htmlFor={`select-all-p`}>P</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="Ab" id={`select-all-ab`} />
+                        <Label htmlFor={`select-all-ab`}>Ab</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="PM" id={`select-all-pm`} />
+                        <Label htmlFor={`select-all-pm`}>PM</Label>
+                      </div>
+                    </RadioGroup>
+                </div>
+              </TableHead>
+            </TableRow>
             <TableRow>
               <TableHead>Student Name</TableHead>
               <TableHead>Roll No.</TableHead>
@@ -83,6 +120,7 @@ export function AttendanceTable({ students, className }: AttendanceTableProps) {
                       className="flex justify-center space-x-4"
                       value={currentStatus || ''}
                       onValueChange={(value) => handleStatusChange(student.id, value as AttendanceStatus)}
+                      name={`attendance-${student.id}`}
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="P" id={`p-${student.id}`} />

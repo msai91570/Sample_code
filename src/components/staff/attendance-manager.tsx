@@ -4,10 +4,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MOCK_ROSTERS, MOCK_STAFF } from "@/lib/mock-data";
 import { AttendanceTable } from "./attendance-table";
 import { ClassPictureUploader } from "./class-picture-uploader";
+import { AbsentStudentsDialog } from "./absent-students-dialog";
+import { useState } from "react";
+import type { AttendanceRecord } from "@/lib/definitions";
 
 export function AttendanceManager() {
     const classes = MOCK_STAFF.classes;
     const rosters = MOCK_ROSTERS;
+    const [attendanceRecords, setAttendanceRecords] = useState<{[className: string]: AttendanceRecord[]}>({});
+
+    const handleAttendanceChange = (className: string, records: AttendanceRecord[]) => {
+        setAttendanceRecords(prev => ({ ...prev, [className]: records }));
+    }
 
     return (
         <Tabs defaultValue={classes[0]}>
@@ -21,9 +29,17 @@ export function AttendanceManager() {
                 <TabsContent key={roster.id} value={roster.className}>
                     <div className="flex flex-col md:flex-row gap-8">
                         <div className="md:w-3/4">
-                           <AttendanceTable students={roster.students} className={roster.className} />
+                           <AttendanceTable 
+                             students={roster.students} 
+                             className={roster.className}
+                             onAttendanceChange={(records) => handleAttendanceChange(roster.className, records)}
+                           />
                         </div>
-                        <div className="md:w-1/4">
+                        <div className="md:w-1/4 space-y-4">
+                           <AbsentStudentsDialog 
+                             students={roster.students}
+                             attendanceRecords={attendanceRecords[roster.className] || []}
+                           />
                            <ClassPictureUploader className={roster.className} />
                         </div>
                     </div>
