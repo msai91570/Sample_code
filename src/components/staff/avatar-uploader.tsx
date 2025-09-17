@@ -50,8 +50,8 @@ export function AvatarUploader({ src, alt }: AvatarUploaderProps) {
           <Image
             src={src}
             alt={alt}
-            width={80}
-            height={80}
+            width={100}
+            height={100}
             className="rounded-full border-4 border-background shadow-md group-hover:opacity-80 transition-opacity"
             data-ai-hint="portrait person"
           />
