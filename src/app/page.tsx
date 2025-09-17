@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { LoginForm } from '@/components/login-form';
-import { ArrowLeft, BookOpen, Briefcase } from 'lucide-react';
+import { ArrowLeft, Briefcase } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type Role = 'staff' | 'student' | null;
@@ -33,10 +34,17 @@ export default function Home() {
             >
               <Card className="w-full max-w-md shadow-2xl">
                 <CardHeader className="text-center">
-                  <div className="mx-auto bg-primary text-primary-foreground rounded-full p-3 w-fit mb-4">
-                    <BookOpen className="h-8 w-8" />
+                  <div className="mx-auto w-fit mb-4">
+                     <Image
+                        src="https://picsum.photos/seed/2/100/100"
+                        alt="Attendance Monitor Logo"
+                        width={100}
+                        height={100}
+                        className="rounded-full"
+                        data-ai-hint="abstract logo"
+                    />
                   </div>
-                  <CardTitle className="text-3xl font-headline">Campus Hub</CardTitle>
+                  <CardTitle className="text-3xl font-headline">Attendance Monitor</CardTitle>
                   <CardDescription className="pt-2">
                     The unified portal for students and staff.
                   </CardDescription>

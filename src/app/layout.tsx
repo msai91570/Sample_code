@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Campus Hub',
+  title: 'Attendance Monitor',
   description: 'A portal for students and staff.',
 };
 
