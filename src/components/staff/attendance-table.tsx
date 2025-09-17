@@ -32,7 +32,7 @@ export function AttendanceTable({ students, className, onAttendanceChange }: Att
 
   useEffect(() => {
     onAttendanceChange(attendance);
-  }, [attendance, onAttendanceChange]);
+  }, [attendance]);
 
   useEffect(() => {
     if (state.message) {
