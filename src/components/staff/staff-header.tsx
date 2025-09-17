@@ -8,10 +8,10 @@ export function StaffHeader() {
   const staff: Staff = MOCK_STAFF;
 
   return (
-    <header className="bg-card/80 backdrop-blur-sm border-b p-6">
+    <header className="bg-background border-b p-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold font-headline text-primary">{staff.name}</h1>
+          <h1 className="text-3xl font-bold font-headline text-foreground">{staff.name}</h1>
           <div className="flex items-center gap-4 mt-2 text-muted-foreground">
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
