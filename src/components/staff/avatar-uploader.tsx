@@ -53,7 +53,7 @@ export function AvatarUploader({ src, alt }: AvatarUploaderProps) {
             width={100}
             height={100}
             className="rounded-full border-4 border-background shadow-md group-hover:opacity-80 transition-opacity"
-            data-ai-hint="portrait person"
+            data-ai-hint="person"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <UploadCloud className="text-white h-8 w-8" />

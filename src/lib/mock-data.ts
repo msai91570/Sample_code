@@ -5,7 +5,7 @@ export const MOCK_STAFF: Staff = {
   name: 'Dr K. Nirmala',
   email: 'nirmala@mits.ac.in',
   phone: '+91 1234567890',
-  avatarUrl: 'https://i.imgur.com/K8oX2W7.png',
+  avatarUrl: 'https://picsum.photos/seed/staff-avatar/100/100',
   password: 'password123',
   classes: ['CSE-A', 'CSE-B', 'CSE-C'],
 };
