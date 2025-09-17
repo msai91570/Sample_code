@@ -34,7 +34,7 @@ export function StudentAttendanceView() {
 
     return (
         <div className="space-y-8">
-             <Card>
+            <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <BookOpen className="h-6 w-6" />

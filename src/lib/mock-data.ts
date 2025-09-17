@@ -153,12 +153,12 @@ export const MOCK_TIMETABLES: Record<string, TimetableEntry[]> = {
   ],
   // Timetable for the first student
   '24691A05A1': [
-      { day: 'Monday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-A' },
-      { day: 'Tuesday', time: '10:00 - 11:30', subject: 'Algorithms', class: 'CSE-A' },
-      { day: 'Wednesday', time: '11:00 - 12:30', subject: 'Database Systems', class: 'CSE-A' },
-      { day: 'Thursday', time: '13:00 - 14:30', subject: 'Operating Systems', class: 'CSE-A' },
-      { day: 'Friday', time: '14:00 - 15:30', subject: 'Computer Networks', class: 'CSE-A' },
-      { day: 'Friday', time: '09:00 - 10:30', subject: 'Software Engineering', class: 'CSE-A' },
+    { day: 'Monday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-A' },
+    { day: 'Tuesday', time: '10:00 - 11:30', subject: 'Algorithms', class: 'CSE-A' },
+    { day: 'Wednesday', time: '11:00 - 12:30', subject: 'Database Systems', class: 'CSE-A' },
+    { day: 'Thursday', time: '13:00 - 14:30', subject: 'Operating Systems', class: 'CSE-A' },
+    { day: 'Friday', time: '14:00 - 15:30', subject: 'Computer Networks', class: 'CSE-A' },
+    { day: 'Friday', time: '09:00 - 10:30', subject: 'Software Engineering', class: 'CSE-A' },
   ],
 };
 
