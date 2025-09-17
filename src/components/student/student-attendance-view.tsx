@@ -1,20 +1,12 @@
 'use client';
 
-import { USERS_DB, MOCK_TIMETABLES } from "@/lib/mock-data";
+import { USERS_DB, MOCK_TIMETABLES, MOCK_STUDENT_ATTENDANCE } from "@/lib/mock-data";
 import type { Student, TimetableEntry, AttendanceStatus } from "@/lib/definitions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Badge } from "../ui/badge";
 import { Progress } from "../ui/progress";
-import { CheckCircle, XCircle, AlertCircle, PieChart } from "lucide-react";
-
-// Mock attendance data for the student. In a real app, this would be fetched.
-const MOCK_STUDENT_ATTENDANCE: { [subject: string]: AttendanceStatus[] } = {
-    'Data Structures': ['P', 'P', 'Ab', 'P', 'P', 'P', 'P', 'Ab', 'P', 'P'],
-    'Database Systems': ['P', 'P', 'P', 'PM', 'P', 'P', 'P', 'P', 'P', 'P'],
-    'Algorithms': ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-    'Computer Networks': ['P', 'Ab', 'Ab', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-};
+import { BookOpen, PieChart } from "lucide-react";
 
 export function StudentAttendanceView() {
     // We'll use the first student for demonstration purposes. In a real app, you'd get this from session.
@@ -23,15 +15,6 @@ export function StudentAttendanceView() {
 
     const subjects = [...new Set(timetable.map(entry => entry.subject))];
 
-    const getStatusIcon = (status: AttendanceStatus) => {
-        switch (status) {
-            case 'P': return <CheckCircle className="h-5 w-5 text-green-500" />;
-            case 'Ab': return <XCircle className="h-5 w-5 text-destructive" />;
-            case 'PM': return <AlertCircle className="h-5 w-5 text-yellow-500" />;
-            default: return null;
-        }
-    };
-    
     const calculateOverallAttendance = () => {
         let totalClasses = 0;
         let attendedClasses = 0;
@@ -42,31 +25,21 @@ export function StudentAttendanceView() {
             attendedClasses += statuses.filter(s => s === 'P' || s === 'PM').length;
         });
 
-        if (totalClasses === 0) return 0;
-        return (attendedClasses / totalClasses) * 100;
+        if (totalClasses === 0) return { percentage: 0, total: 0, attended: 0};
+        const percentage = (attendedClasses / totalClasses) * 100;
+        return { percentage, total: totalClasses, attended: attendedClasses };
     }
     
-    const overallPercentage = calculateOverallAttendance();
+    const overallAttendance = calculateOverallAttendance();
 
     return (
         <div className="space-y-8">
-            <Card>
+             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <PieChart className="h-6 w-6" /> Overall Attendance
+                        <BookOpen className="h-6 w-6" />
+                        Subject-wise Attendance
                     </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex items-center gap-4">
-                        <Progress value={overallPercentage} className="w-full" />
-                        <span className="text-2xl font-bold font-headline">{overallPercentage.toFixed(2)}%</span>
-                    </div>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Subject-wise Attendance</CardTitle>
                     <CardDescription>Your attendance record for each subject.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -74,6 +47,8 @@ export function StudentAttendanceView() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Subject</TableHead>
+                                <TableHead>Conducted</TableHead>
+                                <TableHead>Attended</TableHead>
                                 <TableHead>Percentage</TableHead>
                                 <TableHead className="text-right">Recent History</TableHead>
                             </TableRow>
@@ -88,6 +63,8 @@ export function StudentAttendanceView() {
                                 return (
                                     <TableRow key={subject}>
                                         <TableCell className="font-medium">{subject}</TableCell>
+                                        <TableCell>{total}</TableCell>
+                                        <TableCell>{present}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-2">
                                                 <Progress value={percentage} className="w-24" />
@@ -110,6 +87,23 @@ export function StudentAttendanceView() {
                             })}
                         </TableBody>
                     </Table>
+                </CardContent>
+            </Card>
+            
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <PieChart className="h-6 w-6" /> Overall Attendance
+                    </CardTitle>
+                     <CardDescription>
+                        Total Classes Conducted: {overallAttendance.total} | Total Classes Attended: {overallAttendance.attended}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center gap-4">
+                        <Progress value={overallAttendance.percentage} className="w-full" />
+                        <span className="text-2xl font-bold font-headline">{overallAttendance.percentage.toFixed(2)}%</span>
+                    </div>
                 </CardContent>
             </Card>
         </div>
