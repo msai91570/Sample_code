@@ -1,48 +1,36 @@
 'use client';
 
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { UserX } from 'lucide-react';
 import type { AttendanceRecord, Student } from '@/lib/definitions';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import { ScrollArea } from '../ui/scroll-area';
+import { UserX } from 'lucide-react';
 
-interface AbsentStudentsDialogProps {
+interface AbsentStudentsListProps {
     students: Student[];
     attendanceRecords: AttendanceRecord[];
 }
 
-export function AbsentStudentsDialog({ students, attendanceRecords }: AbsentStudentsDialogProps) {
+export function AbsentStudentsList({ students, attendanceRecords }: AbsentStudentsListProps) {
     const absentStudents = attendanceRecords
         .filter(record => record.status === 'Ab')
         .map(record => students.find(s => s.id === record.studentId))
         .filter((student): student is Student => !!student);
 
-
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="outline" className="w-full">
-                    <UserX className="mr-2 h-4 w-4" />
-                    View Absentees ({absentStudents.length})
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle className="font-headline">Absent Students</DialogTitle>
-                    <DialogDescription>
-                        The following students are marked as absent.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="mt-4">
+        <Card>
+            <CardHeader>
+                <CardTitle className="text-xl font-headline flex items-center gap-2">
+                    <UserX className="h-5 w-5" />
+                    Absentees ({absentStudents.length})
+                </CardTitle>
+                <CardDescription>
+                    Students marked as absent.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ScrollArea className="h-48 rounded-md border">
                     {absentStudents.length > 0 ? (
-                        <div className="rounded-lg border">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -59,14 +47,15 @@ export function AbsentStudentsDialog({ students, attendanceRecords }: AbsentStud
                             ))}
                             </TableBody>
                         </Table>
-                        </div>
                     ) : (
-                        <p className="text-sm text-muted-foreground text-center py-4">
-                            No students are marked as absent.
-                        </p>
+                        <div className="flex items-center justify-center h-full">
+                            <p className="text-sm text-muted-foreground text-center p-4">
+                                No students are marked as absent.
+                            </p>
+                        </div>
                     )}
-                </div>
-            </DialogContent>
-        </Dialog>
+                </ScrollArea>
+            </CardContent>
+        </Card>
     );
 }

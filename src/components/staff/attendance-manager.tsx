@@ -4,9 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MOCK_ROSTERS, MOCK_STAFF } from "@/lib/mock-data";
 import { AttendanceTable } from "./attendance-table";
 import { ClassPictureUploader } from "./class-picture-uploader";
-import { AbsentStudentsDialog } from "./absent-students-dialog";
 import { useState } from "react";
 import type { AttendanceRecord } from "@/lib/definitions";
+import { AbsentStudentsList } from "./absent-students-list";
 
 export function AttendanceManager() {
     const classes = MOCK_STAFF.classes;
@@ -36,7 +36,7 @@ export function AttendanceManager() {
                            />
                         </div>
                         <div className="md:w-1/4 space-y-4">
-                           <AbsentStudentsDialog 
+                           <AbsentStudentsList 
                              students={roster.students}
                              attendanceRecords={attendanceRecords[roster.className] || []}
                            />
