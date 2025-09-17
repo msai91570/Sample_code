@@ -1,6 +1,6 @@
 'use client';
 
-import { USERS_DB, MOCK_TIMETABLE } from "@/lib/mock-data";
+import { USERS_DB, MOCK_TIMETABLES } from "@/lib/mock-data";
 import type { Student, TimetableEntry, AttendanceStatus } from "@/lib/definitions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
@@ -12,12 +12,14 @@ import { CheckCircle, XCircle, AlertCircle, PieChart } from "lucide-react";
 const MOCK_STUDENT_ATTENDANCE: { [subject: string]: AttendanceStatus[] } = {
     'Data Structures': ['P', 'P', 'Ab', 'P', 'P', 'P', 'P', 'Ab', 'P', 'P'],
     'Database Systems': ['P', 'P', 'P', 'PM', 'P', 'P', 'P', 'P', 'P', 'P'],
+    'Algorithms': ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+    'Computer Networks': ['P', 'Ab', 'Ab', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
 };
 
 export function StudentAttendanceView() {
-    // We'll use the first student for demonstration purposes.
+    // We'll use the first student for demonstration purposes. In a real app, you'd get this from session.
     const student: Student = USERS_DB.students[0];
-    const timetable: TimetableEntry[] = MOCK_TIMETABLE; // Assuming this is the student's timetable.
+    const timetable: TimetableEntry[] = MOCK_TIMETABLES[student.id] || [];
 
     const subjects = [...new Set(timetable.map(entry => entry.subject))];
 
@@ -34,7 +36,8 @@ export function StudentAttendanceView() {
         let totalClasses = 0;
         let attendedClasses = 0;
         
-        Object.values(MOCK_STUDENT_ATTENDANCE).forEach(statuses => {
+        subjects.forEach(subject => {
+            const statuses = MOCK_STUDENT_ATTENDANCE[subject] || [];
             totalClasses += statuses.length;
             attendedClasses += statuses.filter(s => s === 'P' || s === 'PM').length;
         });

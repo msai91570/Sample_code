@@ -53,7 +53,7 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
   }
   
   if (role === 'staff') {
-     redirect('/staff/dashboard');
+     redirect(`/staff/dashboard?userId=${user.id}`);
   }
 
   if (role === 'student') {

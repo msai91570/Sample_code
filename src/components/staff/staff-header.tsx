@@ -1,14 +1,14 @@
 'use client';
 
-import { MOCK_STAFF } from '@/lib/mock-data';
 import type { Staff } from '@/lib/definitions';
 import { Mail, Phone } from 'lucide-react';
 import { AvatarUploader } from './avatar-uploader';
 
-export function StaffHeader() {
-  // In a real app, this data would come from a session or API call.
-  const staff: Staff = MOCK_STAFF;
+interface StaffHeaderProps {
+  staff: Staff;
+}
 
+export function StaffHeader({ staff }: StaffHeaderProps) {
   return (
     <header className="bg-muted border-b p-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">

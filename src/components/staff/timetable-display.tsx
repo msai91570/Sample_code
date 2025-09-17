@@ -1,10 +1,22 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MOCK_TIMETABLE } from "@/lib/mock-data";
+import { MOCK_TIMETABLES } from "@/lib/mock-data";
 import type { TimetableEntry } from "@/lib/definitions";
 import { Calendar, Clock, Book } from "lucide-react";
 
-export function TimetableDisplay() {
-  const timetable: TimetableEntry[] = MOCK_TIMETABLE;
+interface TimetableDisplayProps {
+  staffId: string;
+}
+
+export function TimetableDisplay({ staffId }: TimetableDisplayProps) {
+  const timetable: TimetableEntry[] = MOCK_TIMETABLES[staffId] || [];
+
+  if (timetable.length === 0) {
+    return (
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-8 text-center">
+        <p className="text-muted-foreground">No timetable available for this staff member.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-lg border bg-card text-card-foreground shadow-sm">

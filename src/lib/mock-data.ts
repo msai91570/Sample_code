@@ -1,14 +1,53 @@
 import type { Staff, Student, ClassRoster, TimetableEntry } from './definitions';
 
-export const MOCK_STAFF: Staff = {
-  id: 'staff-01',
-  name: 'Dr K. Nirmala',
-  email: 'nirmala@mits.ac.in',
-  phone: '+91 1234567890',
-  avatarUrl: 'https://picsum.photos/seed/1/100/100',
-  password: 'password123',
-  classes: ['CSE-A', 'CSE-B', 'CSE-C'],
-};
+const MOCK_STAFF_LIST: Staff[] = [
+  {
+    id: 'staff-01',
+    name: 'Dr K. Nirmala',
+    email: 'nirmala@mits.ac.in',
+    phone: '+91 1234567890',
+    avatarUrl: 'https://i.imgur.com/Q2YR2nQ.jpeg',
+    password: 'password123',
+    classes: ['CSE-A', 'CSE-B', 'CSE-C'],
+  },
+  {
+    id: 'staff-02',
+    name: 'Prof. S. Verma',
+    email: 'verma.s@mits.ac.in',
+    phone: '+91 9876543211',
+    avatarUrl: 'https://picsum.photos/seed/Verma/100/100',
+    password: 'password123',
+    classes: ['CSE-A'],
+  },
+  {
+    id: 'staff-03',
+    name: 'Dr. R. Gupta',
+    email: 'gupta.r@mits.ac.in',
+    phone: '+91 9876543212',
+    avatarUrl: 'https://picsum.photos/seed/Gupta/100/100',
+    password: 'password123',
+    classes: ['CSE-B'],
+  },
+  {
+    id: 'staff-04',
+    name: 'Mrs. A. Sharma',
+    email: 'sharma.a@mits.ac.in',
+    phone: '+91 9876543213',
+    avatarUrl: 'https://picsum.photos/seed/Sharma/100/100',
+    password: 'password123',
+    classes: ['CSE-C'],
+  },
+  {
+    id: 'staff-05',
+    name: 'Mr. P. Singh',
+    email: 'singh.p@mits.ac.in',
+    phone: '+91 9876543214',
+    avatarUrl: 'https://picsum.photos/seed/Singh/100/100',
+    password: 'password123',
+    classes: ['CSE-A', 'CSE-B'],
+  }
+];
+
 
 const MOCK_ADMIN: Staff = {
   id: 'admin-01',
@@ -80,16 +119,38 @@ export const MOCK_ROSTERS: ClassRoster[] = [
   },
 ];
 
-export const MOCK_TIMETABLE: TimetableEntry[] = [
-    { day: 'Monday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-C' },
-    { day: 'Tuesday', time: '10:00 - 11:30', subject: 'Database Systems', class: 'CSE-C' },
-    { day: 'Wednesday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-C' },
-    { day: 'Thursday', time: '13:00 - 14:30', subject: 'Database Systems', class: 'CSE-C' },
-];
+export const MOCK_TIMETABLES: Record<string, TimetableEntry[]> = {
+  'staff-01': [
+      { day: 'Monday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-A' },
+      { day: 'Wednesday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-B' },
+      { day: 'Friday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-C' },
+  ],
+  'staff-02': [
+      { day: 'Tuesday', time: '10:00 - 11:30', subject: 'Algorithms', class: 'CSE-A' },
+      { day: 'Thursday', time: '10:00 - 11:30', subject: 'Algorithms', class: 'CSE-A' },
+  ],
+  'staff-03': [
+      { day: 'Monday', time: '11:00 - 12:30', subject: 'Database Systems', class: 'CSE-B' },
+      { day: 'Wednesday', time: '11:00 - 12:30', subject: 'Database Systems', class: 'CSE-B' },
+  ],
+  'staff-04': [
+      { day: 'Tuesday', time: '13:00 - 14:30', subject: 'Operating Systems', class: 'CSE-C' },
+      { day: 'Thursday', time: '13:00 - 14:30', subject: 'Operating Systems', class: 'CSE-C' },
+  ],
+  'staff-05': [
+      { day: 'Monday', time: '14:00 - 15:30', subject: 'Computer Networks', class: 'CSE-A' },
+      { day: 'Wednesday', time: '14:00 - 15:30', subject: 'Computer Networks', class: 'CSE-B' },
+  ],
+  'student-24691A05A1': [
+      { day: 'Monday', time: '09:00 - 10:30', subject: 'Data Structures', class: 'CSE-A' },
+      { day: 'Tuesday', time: '10:00 - 11:30', subject: 'Algorithms', class: 'CSE-A' },
+      { day: 'Monday', time: '14:00 - 15:30', subject: 'Computer Networks', class: 'CSE-A' },
+  ],
+};
 
 // Simple lookup for authentication
 export const USERS_DB = {
-  staff: [MOCK_STAFF],
+  staff: MOCK_STAFF_LIST,
   students: MOCK_STUDENTS,
   admin: [MOCK_ADMIN],
 };

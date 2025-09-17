@@ -1,16 +1,20 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MOCK_ROSTERS, MOCK_STAFF } from "@/lib/mock-data";
+import { MOCK_ROSTERS } from "@/lib/mock-data";
 import { AttendanceTable } from "./attendance-table";
 import { ClassPictureUploader } from "./class-picture-uploader";
 import { useState, useCallback } from "react";
-import type { AttendanceRecord } from "@/lib/definitions";
+import type { AttendanceRecord, Staff } from "@/lib/definitions";
 import { AbsentStudentsList } from "./absent-students-list";
 
-export function AttendanceManager() {
-    const classes = MOCK_STAFF.classes;
-    const rosters = MOCK_ROSTERS;
+interface AttendanceManagerProps {
+    staff: Staff;
+}
+
+export function AttendanceManager({ staff }: AttendanceManagerProps) {
+    const classes = staff.classes;
+    const rosters = MOCK_ROSTERS.filter(roster => classes.includes(roster.className));
     const [attendanceRecords, setAttendanceRecords] = useState<{[className: string]: AttendanceRecord[]}>({});
 
     const handleAttendanceChange = useCallback((className: string, newRecords: AttendanceRecord[]) => {
@@ -18,14 +22,16 @@ export function AttendanceManager() {
     }, []);
     
     if (!classes.length || !rosters.length) {
-        return <div>No classes or rosters available.</div>;
+        return <div>You are not assigned to any classes.</div>;
     }
+    
+    const defaultTab = classes[0];
 
     return (
-        <Tabs defaultValue={classes[0]}>
-            <TabsList className="grid w-full grid-cols-3 md:w-[400px]">
-                {classes.map(className => (
-                     <TabsTrigger key={className} value={className}>{className}</TabsTrigger>
+        <Tabs defaultValue={defaultTab}>
+            <TabsList className={`grid w-full md:w-[${rosters.length > 2 ? '400px' : '300px'}]`} style={{gridTemplateColumns: `repeat(${rosters.length}, 1fr)`}}>
+                {rosters.map(roster => (
+                     <TabsTrigger key={roster.className} value={roster.className}>{roster.className}</TabsTrigger>
                 ))}
             </TabsList>
 
