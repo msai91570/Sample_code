@@ -16,10 +16,14 @@ export function AttendanceManager() {
     const handleAttendanceChange = useCallback((className: string, newRecords: AttendanceRecord[]) => {
         setAttendanceRecords(prev => ({ ...prev, [className]: newRecords }));
     }, []);
+    
+    if (!classes.length || !rosters.length) {
+        return <div>No classes or rosters available.</div>;
+    }
 
     return (
         <Tabs defaultValue={classes[0]}>
-            <TabsList>
+            <TabsList className="grid w-full grid-cols-2 md:w-auto md:grid-flow-col">
                 {classes.map(className => (
                      <TabsTrigger key={className} value={className}>{className}</TabsTrigger>
                 ))}
