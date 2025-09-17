@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MOCK_ROSTERS, MOCK_STAFF } from "@/lib/mock-data";
 import { AttendanceTable } from "./attendance-table";
 import { ClassPictureUploader } from "./class-picture-uploader";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { AttendanceRecord } from "@/lib/definitions";
 import { AbsentStudentsList } from "./absent-students-list";
 
@@ -13,9 +13,9 @@ export function AttendanceManager() {
     const rosters = MOCK_ROSTERS;
     const [attendanceRecords, setAttendanceRecords] = useState<{[className: string]: AttendanceRecord[]}>({});
 
-    const handleAttendanceChange = (className: string, newRecords: AttendanceRecord[]) => {
+    const handleAttendanceChange = useCallback((className: string, newRecords: AttendanceRecord[]) => {
         setAttendanceRecords(prev => ({ ...prev, [className]: newRecords }));
-    }
+    }, []);
 
     return (
         <Tabs defaultValue={classes[0]}>
